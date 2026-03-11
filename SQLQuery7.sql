@@ -1,0 +1,7 @@
+6.List all customers who placed more than 1 order and all their orders are on promo only
+
+    SELECT customer_code, count(*) AS order_count,count(Promo_code_name) as promo_orders
+    FROM orders
+    GROUP BY customer_code
+    HAVING count(*) > 1 and count(*)=count(Promo_code_name)
+ 

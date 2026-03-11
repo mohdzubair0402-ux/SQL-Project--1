@@ -1,0 +1,11 @@
+7.What percentage of customers were organically acquired in January 2025((placed their first order without promo code)
+
+with cte as (
+select *,
+ROW_NUMBER() OVER(PARTITION BY Customer_code order by placed_at)as rn
+from orders
+where Month(placed_at)=1 and year(placed_at)=2025
+)
+select count(case when rn=1
+and Promo_code_Name is NULL then customer_code end)*100.00/count(distinct customer_code) as organically_acquired_Jan
+from cte
